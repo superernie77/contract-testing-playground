@@ -21,20 +21,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.github.tomakehurst</groupId>
 			<artifactId>wiremock-jre8</artifactId>
 			<version>2.27.2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ru.lanwen.wiremock</groupId>
 			<artifactId>wiremock-junit5</artifactId>
@@ -47,22 +47,23 @@
 			<artifactId>hamcrest</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
-		<dependency>
-			<groupId>au.com.dius</groupId>
-			<artifactId>pact-jvm-consumer-junit5</artifactId>
-			<version>4.0.9</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>au.com.dius</groupId>
-			<artifactId>pact-jvm-consumer-java8</artifactId>
-			<version>4.0.9</version>
-			<scope>test</scope>
-		</dependency>
 		
+		<dependency>
+			<groupId>au.com.dius.pact.consumer</groupId>
+			<artifactId>junit5</artifactId>
+			<version>4.1.17</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>au.com.dius.pact.provider</groupId>
+			<artifactId>junit5spring</artifactId>
+			<version>4.1.17</version>
+			<scope>test</scope>
+		</dependency>
+
+
 		<!-- JUnit 5 Engine to run Tests -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

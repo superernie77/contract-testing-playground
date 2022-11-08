@@ -34,7 +34,7 @@ public class CustomerConsumerTest {
 	CustomerConsumer consumer;
 	
 	@Test
-	  void fetchCustomers(@Wiremock WireMockServer server, @WiremockUri String uri) {
+	 void fetchCustomers(@Wiremock WireMockServer server, @WiremockUri String uri) {
 		consumer.setBaseUrl(uri);
 	    server.stubFor(
 	      get(urlPathEqualTo("/customers"))
@@ -43,11 +43,11 @@ public class CustomerConsumerTest {
 	          .withBody("[\n" +
 	            "            {\n" +
 	            "                \"id\": 1,\n" +
-	            "                \"name\": \"Ernie\",\n" +
+	            "                \"name\": \"Ernie\"\n" +
 	            "            },\n" +
 	            "            {\n" +
 	            "                \"id\": 2,\n" +
-	            "                \"name\": \"Bert\",\n" +
+	            "                \"name\": \"Bert\"\n" +
 	            "            }\n" +
 	            "        ]\n")
 	          .withHeader("Content-Type", "application/json"))
@@ -61,12 +61,12 @@ public class CustomerConsumerTest {
 	  void getCustomerById(@Wiremock WireMockServer server, @WiremockUri String uri) {
 		  consumer.setBaseUrl(uri);
 	    server.stubFor(
-	      get(urlPathEqualTo("/products/10"))
+	      get(urlPathEqualTo("/customers/1"))
 	        .willReturn(aResponse()
 	          .withStatus(200)
 	          .withBody("{\n" +
-	            "            \"id\": 10,\n" +
-	            "            \"name\": \"28 Degrees\",\n" +
+	            "            \"id\": 1,\n" +
+	            "            \"name\": \"Ernie\"\n" +
 	            "        }\n")
 	          .withHeader("Content-Type", "application/json"))
 	    );

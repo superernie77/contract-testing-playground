@@ -56,13 +56,13 @@ class CustomerConsumer {
 	
 	public List<Customer> printAllCustomers() {
 		Customer[] customers = template
-				.getForObject(baseUrl, Customer[].class);
+				.getForObject(baseUrl+"/customers", Customer[].class);
 		return Arrays.asList(customers);
 	}
 	
 	public Customer printOneCustomer(Integer id) {
 		Customer customer = template
-				.getForObject(baseUrl+id, Customer.class);
+				.getForObject(baseUrl+"/customers/"+id, Customer.class);
 		return customer;
 	}
 

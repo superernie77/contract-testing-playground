@@ -27,6 +27,34 @@ public class RestApplication {
 	}	
 }
 
+record Customer (Integer id, String name) {};
+
+@Component
+class CustomerClient {
+	
+	private String baseUrl;
+	
+	public void setBaseUrl(String url) {
+		baseUrl = url;
+	}
+	
+	@Autowired
+	private RestTemplate template;
+	
+	public List<Customer> getAllCustomers() {
+		Customer[] customers = template
+				.getForObject(baseUrl+"/customers", Customer[].class);
+		return Arrays.asList(customers);
+	}
+	
+	public Customer getOneCustomer(Integer id) {
+		Customer customer = template
+				.getForObject(baseUrl+"/customers/"+id, Customer.class);
+		return customer;
+	}
+
+}
+
 @RestController
 @RequestMapping(path = "/customers")
 class CustomerController {
@@ -41,31 +69,3 @@ class CustomerController {
 		return new Customer(id,"Ernie");
 	}
 }
-
-@Component
-class CustomerConsumer {
-	
-	private String baseUrl;
-	
-	public void setBaseUrl(String url) {
-		baseUrl = url;
-	}
-	
-	@Autowired
-	private RestTemplate template;
-	
-	public List<Customer> printAllCustomers() {
-		Customer[] customers = template
-				.getForObject(baseUrl+"/customers", Customer[].class);
-		return Arrays.asList(customers);
-	}
-	
-	public Customer printOneCustomer(Integer id) {
-		Customer customer = template
-				.getForObject(baseUrl+"/customers/"+id, Customer.class);
-		return customer;
-	}
-
-}
-
-record Customer (Integer id, String name) {};

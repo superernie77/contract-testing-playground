@@ -1,10 +1,7 @@
 package se77;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,10 +25,10 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @ExtendWith({ WiremockResolver.class, WiremockUriResolver.class })
-public class CustomerConsumerTest {
+public class CustomerClientWireMockTest {
 	
 	@Autowired
-	CustomerConsumer consumer;
+	CustomerClient consumer;
 	
 	@Test
 	 void fetchCustomers(@Wiremock WireMockServer server, @WiremockUri String uri) {
@@ -53,7 +50,7 @@ public class CustomerConsumerTest {
 	          .withHeader("Content-Type", "application/json"))
 	    );
 
-	    List<Customer> response = consumer.printAllCustomers();
+	    List<Customer> response = consumer.getAllCustomers();
 	    assertThat(response, hasSize(2));
 	  }
 
@@ -71,7 +68,7 @@ public class CustomerConsumerTest {
 	          .withHeader("Content-Type", "application/json"))
 	    );
 
-	    Customer customer = consumer.printOneCustomer(1);
+	    Customer customer = consumer.getOneCustomer(1);
 	    assertThat(customer, is(equalTo(new Customer(1, "Ernie"))));
 	  }
 }

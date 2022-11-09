@@ -40,10 +40,11 @@ public class CustomerConsumerPactTest {
 	      .willRespondWith()
 	      .status(200)
 	      .body(
+	        // define response array with randoly generated values
 	        PactDslJsonArray
-	          .arrayMaxLike(2)
-	          .integerType("id", 1)
-	          .stringType("name", "Ernie")
+	          .arrayMinLike(2) // should be 2 items in the array
+	          .integerType("id") // random ID
+	          .stringType("name") // random name
 	      )
 	      .toPact();
 	  }
@@ -57,6 +58,7 @@ public class CustomerConsumerPactTest {
 	      .willRespondWith()
 	      .status(200)
 	      .body(
+	        // define a response with concrete values
 	        new PactDslJsonBody()
 	          .integerType("id", 1)
 	          .stringType("name", "Ernie")
@@ -69,7 +71,10 @@ public class CustomerConsumerPactTest {
 	  void testAllProducts(MockServer mockServer) throws IOException {
 		  customerClient.setBaseUrl(mockServer.getUrl());
 		  List<Customer> customers = customerClient.getAllCustomers();
-		  assertThat(customers, hasSize(1));
+		  
+		  // test against size of response
+		  // values in the customer object are random
+		  assertThat(customers, hasSize(2));
 	  }
 
 	  @Test
@@ -77,6 +82,7 @@ public class CustomerConsumerPactTest {
 	  void testSingleProduct(MockServer mockServer) throws IOException {
 		  customerClient.setBaseUrl(mockServer.getUrl());
 		  Customer customer = customerClient.getOneCustomer(1);
+		  // test client against concrete values
 		  assertThat(customer, is(equalTo(new Customer(1, "Ernie"))));
 	  }
 }

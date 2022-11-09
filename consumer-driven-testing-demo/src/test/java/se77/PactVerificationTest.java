@@ -20,7 +20,7 @@ import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
 @IgnoreMissingStateChange
 public class PactVerificationTest {
 	
-	 @LocalServerPort
+	  @LocalServerPort
 	  private int port;
 
 	  @BeforeEach

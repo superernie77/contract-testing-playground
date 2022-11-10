@@ -29,6 +29,12 @@ public class RestApplication {
 
 record Customer (Integer id, String name) {};
 
+
+// complex data object
+record CustomerDetails(Customer customer, Address address, PaymentData paymentData ) {};
+record Address(String streetname, String city, String country, Integer number, String zipCode) {};
+record PaymentData(String accountNumber) {};
+
 @Component
 class CustomerClient {
 	
@@ -52,6 +58,12 @@ class CustomerClient {
 				.getForObject(baseUrl+"/customers/"+id, Customer.class);
 		return customer;
 	}
+	
+	public CustomerDetails getCustomerDetails(Integer id) {
+		CustomerDetails customerDetails = template
+				.getForObject(baseUrl+"/customers/" + id + "/details", CustomerDetails.class);
+		return customerDetails;
+	}
 
 }
 
@@ -67,5 +79,13 @@ class CustomerController {
 	@GetMapping("/{id}")
 	public Customer getOneCustomer(@PathVariable Integer id) {
 		return new Customer(id,"Ernie");
+	}
+	
+	@GetMapping("/{id}/details") 
+	public CustomerDetails getDetails(@PathVariable Integer id) {
+		return new CustomerDetails(
+				new Customer(1,"Ernie"), 
+				new Address("Laufener Str.", "Freilassing", "Germany", 5, "833395"), 
+				new PaymentData("12345678") );
 	}
 }
